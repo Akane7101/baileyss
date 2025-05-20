@@ -395,7 +395,12 @@ export const makeMessagesSocket = (config: SocketConfig) => {
 						if(isStatus && statusJidList) {
 							participantsList.push(...statusJidList)
 						}
-
+if(!isStatus) {
+							additionalAttributes = {
+								...additionalAttributes,
+								addressing_mode: groupData?.addressingMode || 'pn'
+							}
+}
 						const additionalDevices = await getUSyncDevices(participantsList, !!useUserDevicesCache, false)
 						devices.push(...additionalDevices)
 					}
